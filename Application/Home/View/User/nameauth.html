@@ -1,0 +1,77 @@
+<include file="Public:header" />
+<div class="autobox">
+ <div class="now">
+  <a href="/" class="orange">首页</a> &gt; <a href="/user/index.html" class="orange">安全中心 </a> &gt; 实名认证
+ </div>
+ <div class="assets_center clear po_re zin70">
+  <!--左侧菜单-->
+  <include file="User:left" />
+  <!--右侧内容-->
+  <div class="assets_content w900 right bg_w">
+   <div class="safe_center clear" style="padding-left: 0px; border-bottom: 2px solid #e55600;">
+    <h1 style="margin-top: 0px; margin-bottom: 15px; line-height: 15px;">实名认证</h1>
+   </div>
+   <div class="sj" style="top: 40px; left: 60px;"></div>
+      <notempty name="prompt_text">
+                    <div class="mytips">
+                        <h6 style="color: #ff8000;">温馨提示</h6>
+                        {$prompt_text}
+                    </div>
+                </notempty>
+   <br> <br>
+   <div class="pwtrade">
+    <form id="form-nameauth">
+     <div class="band_succ" style="padding-left: 116px;">
+      <em></em>已通过实名认证
+     </div>
+     <br>
+
+     <div class="set_verify">
+      <ul>
+       <li>您的身份信息</li>
+       <li>姓名：{$user.truename}</li>
+       <li>证件类型：身份证</li>
+       <li>身份证号：{$user.idcard}</li>
+       <li>认证时间：{$user['addtime']|addtime}</li>
+      </ul>
+     </div>
+     <div class="set_verify_img">
+      <div class="sv_title">更改实名认证信息流程：</div>
+      <div class="hide_btn" onclick="$(this).toggleClass('hide_active');$('.sv_text').slideToggle('slow');"></div>
+      <div class="sv_text">
+       <p>
+        <span>1.</span>发送与上方认证信息一致的 身份证正反面照片或扫描件 以及 手持身份证头部照给客服
+       </p>
+       <div class="set_verify_img_pic clear">
+        <div class="sv_pic">
+         <img src="/Public/Home/images/pic.jpg" alt="">
+        </div>
+        <span>手持身份证头部照示例</span>
+       </div>
+       <p>
+        <span>2.</span>审核更改申请；审核完成后，客服通知您申请是否通过
+       </p>
+       <p>
+        <span>3.</span>申请通过，请您登录重新进行实名认证
+       </p>
+       <p>
+        申请失败，则请您根据提示信息重新提交申请<br>
+        <br> <a class="qqkefu" href="http://wpa.qq.com/msgrd?V=3&amp;uin={:C('contact_qq')[0]}&amp;Site=QQ客服&amp;Menu=yes" target="_blank"></a>
+       </p>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+</div>
+<br>
+<br>
+<script>
+	$("title").html("{:C('web_title')} - 安全中心 - 实名认证");
+	//顶部菜单高亮
+	$('#user_box').addClass('active');
+	$('#user_nameauth').addClass('active');
+	$('#user_nameauth i').attr('class','coin_menu_op_8');
+</script>
+<include file="Public:footer" />

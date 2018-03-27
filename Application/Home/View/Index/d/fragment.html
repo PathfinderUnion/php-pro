@@ -1,0 +1,46 @@
+<div class="hmodifyNav addFixed" style="text-align: center;">
+    <div class="price_today" style="top: 0px; margin-top: 0px; background: rgb(27, 27, 27);">
+        <div class="autobox">
+            <ul class="price_today_ull clearfix">
+                <li style="cursor:default;">交易市场</li>
+                <li class="click-sort">最新成交价 <i class="cagret cagret-down"></i><i class="cagret cagret-up"></i></li>
+                <li class="click-sort">买一价 <i class="cagret cagret-down"></i><i class="cagret cagret-up"></i></li>
+                <li class="click-sort">卖一价 <i class="cagret cagret-down"></i><i class="cagret cagret-up"></i></li>
+                <li class="click-sort">成交量 <i class="cagret cagret-down"></i><i class="cagret cagret-up"></i></li>
+                <li class="click-sort">成交额 <i class="cagret cagret-down"></i><i class="cagret cagret-up"></i></li>
+                <li class="click-sort">日涨跌 <i class="cagret cagret-down"></i><i class="cagret cagret-up"></i></li>
+            </ul>
+        </div>
+    </div>
+    <ul class="price_today_ul" id="price_today_ul">
+        <script>var pairs = [];</script>
+
+        <foreach name="data" item="vo">
+            <li class="list_coin0">
+                <script>pairs.push("{$vo[7]}");</script>
+                <a href="" rel="btc_cny">
+                    <dl class="autobox clearfix">
+                        <dt>
+                            <a href="/trade/index/market/cny_cny/">
+                                <img src="/Upload/coin/{$vo[9]}"
+                                     style="vertical-align: middle;margin-right: 5px;width: 19px;height: 19px;">
+                                {$vo[0]}
+                            </a>
+                        </dt>
+                        <dd class=green>￥{$vo[1]}</dd>
+                        <dd>{$vo[2]}</dd>
+                        <dd>{$vo[3]}</dd>
+                        <dd>{$vo[6]}</dd>
+                        <dd class=green>{$vo[7]}</dd>
+                        <dd class=green>+ {$vo[6]}%</dd>
+                        <dd class="gotrade">
+                            <input type="button" style="background-color: #fe6b01" value="去交易"
+                                   onclick="window.location.href='/trade/index/market/{$vo[8]}/';window.event.returnValue=false; "/>
+                        </dd>
+                    </dl>
+                </a>
+            </li>
+        </foreach>
+
+    </ul>
+</div>

@@ -1,0 +1,149 @@
+<include file="Public:header" />
+<div class="autobox">
+ <div class="now">
+  <a href="/" class="orange">首页</a>&gt; 安全中心
+ </div>
+ <div class="assets_center clear po_re zin70">
+  <!--左侧菜单-->
+  <include file="User:left" />
+  <!--右侧内容-->
+  <div class="assets_content w900 right bg_w" id="safebox">
+   <div class="safe_center clear" style="padding-left: 0px; border-bottom: 2px solid #e55600;">
+    <h1 style="margin-top: 0px; margin-bottom: 15px; line-height: 15px;">安全中心</h1>
+   </div>
+   <div class="sj" style="top: 40px; left: 60px;"></div>
+      <notempty name="prompt_text">
+                    <div class="mytips">
+                        <h6 style="color: #ff8000;">温馨提示</h6>
+                        {$prompt_text}
+                    </div>
+                </notempty>
+   <br>
+
+   <div class="safe_center clear">
+    <div class="sc_level">
+     <if condition="($user['moble'] neq '') AND ($user['ga'] neq '')">
+     <div class="sc_level_1"></div>
+     <elseif condition="($user['moble'] neq '') AND ($user['ga'] eq '')" />
+     <div class="sc_level_2"></div>
+     <elseif condition="($user['moble'] eq '') AND ($user['ga'] neq '')" />
+     <div class="sc_level_3"></div>
+     <else />
+     <div class="sc_level_4"></div>
+     </if>
+    </div>
+    <dl>
+     <dt>
+      ID：<span>{$user.id}</span>
+     </dt>
+     <dd>姓名：{$user.truename}</dd>
+     <dd>用户名：{$user.username}</dd>
+    </dl>
+   </div>
+   <ul class="sc_statu">
+    <li><em class="sc_statu_type_1"></em>
+     <dl>
+      <dt>实名认证</dt>
+      <dd class="alpass">
+       已认证<a href="/user/nameauth.html">查看</a>
+      </dd>
+     </dl></li>
+    <li style="display:none;"><empty name="user['ga']"> <em class="sc_statu_type_2_1"></em>
+     <dl>
+      <dt>双重认证</dt>
+      <dd class="nopass">
+       未验证<a href="/user/ga.html">立即验证</a>
+      </dd>
+     </dl>
+     <else /> <em class="sc_statu_type_2"></em>
+     <dl>
+      <dt>双重认证</dt>
+      <dd class="alpass">
+       已验证<a href="/user/ga.html">查看</a>
+      </dd>
+     </dl>
+     </empty></li>
+    <li><empty name="user['moble']"> <em class="sc_statu_type_3_1"></em>
+     <dl>
+      <dt>绑定手机</dt>
+      <dd class="nopass">
+       未认证 <a href="/user/moble.html">查看</a>
+      </dd>
+     </dl>
+     <else /> <em class="sc_statu_type_3"></em>
+     <dl>
+      <dt>绑定手机</dt>
+      <dd class="alpass">
+       已认证 <a href="/user/moble.html">查看</a>
+      </dd>
+     </dl>
+     </empty></li>
+   </ul>
+   <div class="sc_info_list" id="sc_info_list">
+    <dl>
+     <dt>登录密码</dt>
+     <dd>
+      <p>登录账户时需要输入的密码</p>
+     </dd>
+     <dd>
+      <div class="changepw">
+       <a href="/user/password.html">修改登录密码</a>
+      </div>
+     </dd>
+    </dl>
+    <dl>
+     <dt>交易密码</dt>
+     <dd>
+      <p>在进行交易时需要输入的密码</p>
+     </dd>
+     <dd>
+      <div class="changepw">
+       <a href="/user/paypassword.html">修改交易密码</a>
+      </div>
+     </dd>
+    </dl>
+    <dl>
+     <dt>实名认证</dt>
+     <dd>
+      <p>受国家要求及为了您的资金安全需进行实名认证</p>
+     </dd>
+     <dd>
+      <div class="changepw">
+       已认证 <a href="/user/nameauth.html">查看</a>
+      </div>
+     </dd>
+    </dl>
+    <dl style="display:none;">
+     <dt>双重验证</dt>
+     <dd>
+      <p>Google Authenticator (双重验证)，可以更安全的保护您的账户</p>
+     </dd>
+     <dd>
+      <div class="changepw">
+       <empty name="user['ga']"> 未验证 ｜ <a href="/user/ga.html">立即验证</a> <else /> <a href="/user/ga.html">查看</a> </empty>
+      </div>
+     </dd>
+    </dl>
+    <dl>
+     <dt>手机绑定</dt>
+     <dd>
+      <p>在提现的时候需要使用</p>
+     </dd>
+     <dd>
+      <div class="changepw">
+       <empty name="user['moble']"> 未认证 ｜ <a href="/user/moble.html">立即认证</a> <else /> <a href="/user/moble.html">查看</a> </empty>
+      </div>
+     </dd>
+    </dl>
+   </div>
+  </div>
+ </div>
+</div>
+<br>
+<br>
+<script>
+	$('#user_box').addClass('active');
+	$('#user_index').addClass('active');
+	$('#user_index i').attr('class','coin_menu_op_14');
+</script>
+<include file="Public:footer" />

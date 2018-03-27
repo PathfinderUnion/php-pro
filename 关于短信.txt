@@ -1,0 +1,13 @@
+测试环境：phpstudy PHP5.4+MySql 如非此环境，请自行研究！
+
+1，上传源码到您的服务器或空间并导入“数据库”目录里的 xunibi.sql 到您的数据库
+
+2，修改根目录 index.php 里的数据库连接信息为你的
+
+3，安装完成后如前台和后台无法打开或是显示乱码请清除 Runtime 文件夹下的所有缓存文件！
+
+4，短信接口配置文件位置：/Application/Common/Common/function.php
+     短信接口帐号地址：www.juhe.cn
+     短信接口帐号地址：http://sms.webchinese.com.cn
+
+5、安装完成后后台地址：http://您的域名/admin/  管理员帐号：admin  密码：admin888

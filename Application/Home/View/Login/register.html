@@ -1,0 +1,313 @@
+<include file="Public:header" />
+<style>
+	.order li {
+		color:#fff;
+	}
+	.reg_box1 {
+		margin-top: 11px;
+		margin-bottom: 48px;
+		padding-bottom: 38px;
+		min-height: 400px;
+	}
+	.reg_title {
+		color: #fff;
+	}
+	.reg_radio_box a {
+		color: #fff;
+	}
+	
+	input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+	color: #ff0000; 
+	} 
+	input:-moz-placeholder, textarea:-moz-placeholder { 
+	color: #ff0000;
+	} 
+	input::-moz-placeholder, textarea::-moz-placeholder { 
+	color: #ff0000;
+	} 
+	input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+	color: #ff0000;
+	} 
+
+
+	
+</style>
+<div class="autobox" id="reg-step1" style="position:absolute;left:50%;margin-left:-600px;">
+	<div class="login_step">
+		<ul class="order clear">
+			<li class="orange"><i class="order_1_1"></i>用户注册
+				<div class="order_line"></div></li>
+			<li><i class="order_2"></i>设置交易密码
+				<div class="order_line"></div></li>
+			<li><i class="order_3"></i>实名认证
+				<div class="order_line"></div></li>
+			<li><i class="order_4"></i>成功</li>
+		</ul>
+	</div>
+	<div class="reg_box1">
+		<div>
+			<div id="reg-control" class="btn-group" style="text-align: center; ">
+				
+			</div>
+			<div id="reg_index" class="reg_wrap">
+				<div class="reg_input_box reg-fb" id="username_reg">
+					<div class="reg_title">用户名：</div>
+					<input type="text" id="username" value="" onblur="regusername()" />
+					<div id="username-msg" class="form_explain" data-explain="6-18个字符,可使用字母、数字,需以字母开头<em></em>" style="display: none;">
+						6-18个字符,可使用字母、数字,需以字母开头<em></em>
+					</div>
+				</div>
+				<div class="reg_input_box reg-fb" id="reg_first_verify">
+					<div class="reg_title">验证码：</div>
+					<input type="text" id="verify" value="" onblur="regverify()" style="width: 165px; box-shadow: none; " />
+					<div id="verify-msg" class="form_explain" data-explain="输入验证码<em></em>" style="display: none;">
+						输入验证码<em></em>
+					</div>
+					<img class="codeImg" src="{:U('Verify/code')}" title="换一张" onclick="this.src=this.src+'?t='+Math.random()">
+				</div>
+				<div class="reg_input_box reg-fb">
+					<div class="reg_title">登录密码：</div>
+					<input type="password" id="password" value="" onblur="regpassword()" />
+					<div id="password-msg" class="form_explain" data-explain="密码六位以上<em></em>" style="display: none;">
+						密码六位以上<em></em>
+					</div>
+				</div>
+				<div class="reg_input_box reg-fb">
+					<div class="reg_title">重复密码：</div>
+					<input type="password" id="repassword" value="" onblur="regrepassword()" />
+					<div id="repassword-msg" class="form_explain" data-explain="重复输入密码，两次需要一致<em></em>" style="display: none;">
+						重复输入密码，两次需要一致<em></em>
+					</div>
+				</div>
+				<div class="reg_input_box reg-fb">
+					<div class="reg_title">邀请码：</div>
+					<input id="invit" name="invite" type="text" placeholder="非必填" value="{$Think.session.invit}"
+					<notempty name="Think.session.invit">readonly</notempty> />
+				</div>
+				<div class="reg_radio_box">
+					<label>注册即视为同意 <a href="javascript:void(0)" onclick="registerAgreement();">用户注册协议</a></label>
+				</div>
+				<div class="formbody">
+						<div id="slider">
+							<div id="slider_bg"></div>
+							<span id="label">>></span> <span id="labelTip"></span>
+						</div>	
+					   <input style="display:none;" type="button" class="zuocoin_btn" name="index_submit" id="loginSubmin" onclick="Update();" value="立即注册" title="立即注册" style="width: 320px;">
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+	<section class="canvas-wrap" style="min-height:700px;">
+		<div id="canvas" class="gradient"></div>
+	</section>
+
+
+<div class="autobox" style="margin-bottom: 30px">
+	<ul class="safety_tips_ul clear">
+		<li>
+			<div class="safety_img safety_img_1"></div>
+			<h4>系统可靠</h4>
+			<p>银行级用户数据加密、动态身份验证，多级风险识别控制，保障交易安全</p>
+		</li>
+		<li>
+			<div class="safety_img safety_img_2"></div>
+			<h4>资金安全</h4>
+			<p>钱包多层加密，离线存储于银行保险柜，资金第三方托管，确保安全</p>
+		</li>
+		<li>
+			<div class="safety_img safety_img_3"></div>
+			<h4>快捷方便</h4>
+			<p>充值即时、提现迅速，每秒万单的高性能交易引擎，保证一切快捷方便</p>
+		</li>
+		<li>
+			<div class="safety_img safety_img_4"></div>
+			<h4>服务专业</h4>
+			<p>专业的客服团队，400电话和24小时在线QQ，VIP一对一专业服务</p>
+		</li>
+	</ul>
+</div>
+
+<script>
+
+	function registerAgreement(){
+		layer.open({
+			type:2,
+			skin:'layui-layer-rim', //加上边框
+			area:['800px','600px'], //宽高
+			title:'注册协议', //不显示标题
+			content:"{:U('Login/webreg')}"
+		});
+	}
+
+
+	$('input').focus(function(){
+		var t=$(this);
+		if(t.attr('type')=='text'||t.attr('type')=='password')
+			t.css({'box-shadow':'0px 0px 3px #1583fb','border':'1px solid #1583fb'});
+		if(t.val()==t.attr('placeholder'))
+			t.val('');
+	});
+	$('input').blur(function(){
+		var t=$(this);
+		if(t.attr('type')=='text'||t.attr('type')=='password')
+			t.css({'box-shadow':'none','border':'1px solid #e1e1e1'});
+		if(t.attr('type')!='password'&&!t.val())
+			t.val(t.attr('placeholder'));
+	});
+	$('.reg_input_box input').each(function(i,d){
+		$(d).focus(function(){
+			var oRegMsg=$('#'+$(this).attr('id')+'-msg');
+			oRegMsg.attr('class')=='form_explain_error'?oRegMsg.attr('class','form_explain').html(oRegMsg.attr('data-explain')).show():oRegMsg.show();
+		})
+		$(d).blur(function(){
+			var oRegMsg=$('#'+$(this).attr('id')+'-msg');
+			$(this).parent().find('.form_explain').hide();
+		})
+	})
+	var mbTest_username=/^(?![^a-zA-Z]+$)(?!\D+$).{5,15}$/;
+	var mbTest_password=/^[a-zA-Z0-9_]{5,15}$/;
+	//输入框消息
+	function formMsg(o, status, msg){
+		$('#'+o+'-msg').attr('class', 'form_explain_'+(status?'pass':'error')).html((typeof msg == 'undefined'? '': msg)+'<em></em>').show();
+		return true;
+	}
+	function regusername(){
+		var username = $('#username').val();
+		if(username==""||username==null){
+			formMsg('username', 0, '请输入用户名');
+			return false;
+		}
+		$.post("{:U('Login/chkUser')}",{username:username},function(ret){
+			if(ret.status){
+				formMsg('username', 1);
+				return true;
+			}else{
+				formMsg('username', 0, ret.info);
+				return false;
+			}
+		},'json');
+	}
+	function regverify(){
+		var verify = $('#verify').val();
+		if(verify==""||verify==null){
+			formMsg('verify', 0, '请输入验证码');
+			return false;
+		}else{
+			formMsg('verify', 1);
+			return true;
+		}
+	}
+
+	function regpassword(){
+		var password = $('#password').val();
+		if(password==""||password==null){
+			formMsg('password', 0, '请输入登录密码');
+			return false;
+		}else{
+			if(!mbTest_password.test(password)){
+				formMsg('password', 0, '登录密码格式错误 (6~16个字符)');
+				return false;
+			}else{
+				formMsg('password', 1);
+				return true;
+			}
+		}
+	}
+	
+	function regrepassword(){
+		var password = $('#password').val();
+		var repassword = $('#repassword').val();
+		if(repassword==""||repassword==null){
+			formMsg('repassword', 0, '请输入确认密码');
+			return false;
+		}else{
+			if(!mbTest_password.test(repassword)){
+				formMsg('repassword', 0, '登录密码格式错误 (6~16个字符)');
+				return false;
+			}else{
+				if(password!=repassword){
+					formMsg('repassword', 0, '确认登录错误');
+					return false;
+				}else{
+					formMsg('repassword', 1);
+					return true;
+				}
+			}
+		}
+	}
+	
+
+	function Update(){
+		var username=$("#username").val();
+		var password=$("#password").val();
+		var repassword=$("#repassword").val();
+		var invit=$("#invit").val();
+		var verify=$("#verify").val();
+		if(username==""||username==null){
+			formMsg('username', 0, '请输入用户名');
+			slider.init();
+			return false;
+		}
+		if(password==""||password==null){
+			formMsg('password', 0, '请输入登录密码');
+			slider.init();
+			return false;
+		}
+		if(repassword==""||repassword==null){
+			formMsg('repassword', 0, '请输入确认密码');
+			slider.init();
+			return false;
+		}
+		if(password!=repassword){
+			formMsg('repassword', 0, '确认密码错误');
+			slider.init();
+			return false;
+		}
+		
+		if(verify==""||verify==null){
+			formMsg('verify', 0, '请输入验证码');
+			slider.init();
+			return false;
+		}
+		$.post("{:U('Login/upregister')}",{username:username,password:password,repassword:repassword,invit:invit,verify:verify},function(data){
+			if(data.status==1){
+				layer.msg(data.info,{icon:1});
+				$.cookies.set('cookie_username',username);
+				window.location='/Login/register2';
+			}else{
+				layer.msg(data.info,{icon:2});
+				if(data.url){
+					window.location=data.url;
+				}else{
+					slider.reset();
+				}
+			}
+		},"json");
+	}
+	
+	
+
+	//$(function () {
+		var slider = new SliderUnlock("#slider",{
+				initLabelTip : "拖动滑块提交",
+				successLabelTip : "欢迎注册本网站"	
+			},function(){
+				Update();
+			});
+		slider.init();
+	//})
+
+	
+	
+</script>
+
+<script src="__PUBLIC__/Home/js/three.min.js?version=201612131123"></script>
+<script src="__PUBLIC__/Home/js/projector.js?version=201612131123"></script>
+<script src="__PUBLIC__/Home/js/canvas-renderer.js?version=201612131123"></script>
+<script src="__PUBLIC__/Home/js/3d-lines-animation.js?version=201612131123"></script>
+<script src="__PUBLIC__/Home/js/color.js?version=201612131123"></script>
+
+<include file="Public:footer" />

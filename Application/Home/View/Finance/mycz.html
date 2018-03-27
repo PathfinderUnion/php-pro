@@ -1,0 +1,202 @@
+<include file="Public:header"/>
+<div class="autobox">
+	<div class="now">
+		<a href="/" class="orange">首页</a> &gt; <a href="/finance/" class="orange">财务中心</a> &gt; 人民币充值
+	</div>
+	<div class="assets_center clear po_re zin70">
+		<!--左侧菜单-->
+		<include file="Finance:left"/>
+		<!--右侧内容-->
+		<form id="form-cnyin" class="assets_content w900 right bg_w">
+			<div class="safe_center clear" style="padding-left: 0px; border-bottom: 2px solid #E55600;">
+				<h1 style="margin-top: 0px; margin-bottom: 15px; line-height: 15px;">人民币充值</h1>
+			</div>
+			<div class="sj" style="top: 40px; left: 72px;"></div>
+			<notempty name="prompt_text">
+				<div class="mytips">
+					<h6 style="color: #FF8000;">温馨提示</h6>
+					{$prompt_text}
+				</div>
+			</notempty>
+			<div class="choosepaymethod">
+				<div class="choosebanks" style="margin-top: 10px;">
+					<div class="methodway clearfix">
+						<div class="w_div clearfix">
+							<div class="w1">账户余额：</div>
+							<div class="w2" style="color: #333;">
+								<img src="__PUBLIC__/Home/images/coin_rmb.png" alt="" style="width: 18px; float: left; margin-top: 8px; margin-right: 5px;"/>
+								<span>可用人民币(CNY):￥<font class="coin-balance" style="    color: #690!important;">{$user_coin['cny']|NumToStr}</font></span>
+								<apan>
+								</apan>
+							</div>
+						</div>
+						<div class="w_div clearfix">
+							<div class="w1">充值方式：</div>
+							<div class="w2">
+								<select name="type" id="mycz_type" style="width: 200px; height: 38px;border-radius: 8px;">
+									<option value="">---选择方式---</option>
+									<volist name="myczTypeList" id="vo">
+										<option value="{$key}">{$vo}</option>
+									</volist>
+								</select>
+							</div>
+						</div>
+						<div class="w_div clearfix">
+							<div class="w1">充值金额：</div>
+							<div class="w2">
+
+							<span style="position: relative;" class="cc2">
+                                    <input type="text" class="cztxinput" id="mycz_amount" value="" style="border-radius: 8px;">
+                                <div style="position: absolute;osition: absolute;right: 10px;top: -7px;font-size: 14px;color: #333;font-weight: 700;">
+	                                <span id="random" class="random">.{:tradenob()}</span></div>
+
+                            </span>
+							</div>
+						</div>
+						<div class="w_div clearfix">
+							<div class="w1">&nbsp;</div>
+							<div class="w2">
+								<input type="button" class="btn-cztx" id="btn-submit" value="立即充值" title="立即充值" onclick="myczUp()" style="border-radius: 8px;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="f_body">
+					<table class="f_table" id="investLog_content">
+						<thead>
+						<tr>
+							<th width="">充值时间</th>
+							<th width="">充值订单</th>
+							<th width="">充值方式</th>
+							<th width="">充值金额</th>
+							<th width="">实际到账</th>
+							<th width=""><select name="status-selectTest" id="status-selectTest">
+								<option value="0"
+								<eq name="status" value="0">selected</eq>
+								>状态</option>
+								<option value="1"
+								<eq name="status" value="1">selected</eq>
+								>未付款</option>
+								<option value="2"
+								<eq name="status" value="2">selected</eq>
+								>充值成功</option>
+								<option value="3"
+								<eq name="status" value="3">selected</eq>
+								>人工到账</option>
+								<option value="4"
+								<eq name="status" value="4">selected</eq>
+								>处理中</option>
+							</select></th>
+							<th width="">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<volist name="list" id="vo">
+							<tr>
+								<td>{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+								<td>{$vo.tradeno}</td>
+								<td>{$vo.type}</td>
+								<td>￥{$vo['num']|default="0.00"}</td>
+								<td>￥{$vo['mum']|default="0.00"}</td>
+								<td>
+									<eq name="vo.status" value="0">
+										未付款
+										<a onclick="myczHuikuan({$vo['id']})" href="javascript:void(0)" style="    color: #2674FF!important;">已汇款</a>
+									</eq>
+									<eq name="vo.status" value="1">
+										充值成功
+									</eq>
+									<eq name="vo.status" value="2">
+										人工到账
+									</eq>
+									<eq name="vo.status" value="3">
+										处理中
+									</eq>
+								</td>
+								<td>
+									<a onclick="myczChakan({$vo['id']})" href="javascript:void(0)" class="cur" style="    color: #E55600!important;">查看</a>
+								</td>
+							</tr>
+						</volist>
+						</tbody>
+					</table>
+					<div class="pages">{$page}</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div><br><br>
+<script>
+	$("#status-selectTest").change(function () {
+		var status = $("#status-selectTest option:selected").val();
+		window.location = '/Finance/mycz/status/' + status + '/.html';
+	});
+
+
+	function myczHuikuan(id) {
+		$.post("{:U('Finance/myczHuikuan')}", {id: id}, function (data) {
+			if (data.status == 1) {
+				layer.msg(data.info, {icon: 1});
+				window.location.reload();
+			} else {
+				layer.msg(data.info, {icon: 2});
+			}
+		}, "json");
+	}
+
+	function myczChakan(id) {
+
+		layer.open({
+			title: '人民币充值',
+			type: 2,
+			area: ['650px', '500px'],
+			content: ["{:U('Pay/mycz')}?id=" + id, 'no']
+		});
+
+	}
+
+	function myczUp() {
+
+		var mbTest_num = /^([1-9]{1}\d*)(\.(\d){1,2})?$/;
+		var type = $('#mycz_type option:selected').val();
+		var num = $("#mycz_amount").val();
+		if (type == "" || type == null) {
+			layer.tips('请选择充值方式', '#mycz_type', {tips: 3});
+			return false;
+		}
+		if (num == "" || num == null) {
+			layer.tips('请输入充值金额', '#mycz_amount', {tips: 3});
+			return false;
+		} else {
+			num = num + $('#random').html();
+		}
+		if (!mbTest_num.test(num)) {
+			layer.tips('充值金额格式错误 (人民币格式)', '#mycz_amount', {tips: 3});
+			return false;
+		}
+		$.post("{:U('Finance/myczUp')}", {
+			type: type,
+			num: num
+		}, function (data) {
+			if (data.status == 1) {
+				layer.open({
+					title: '人民币充值',
+					type: 2,
+					area: ['650px', '500px'],
+					content: ["{:U('Pay/mycz')}?id=" + data.url.id, 'no']
+				});
+			} else {
+				layer.msg(data.info, {icon: 2});
+				if (data.url) {
+					window.location = data.url;
+				}
+			}
+		}, "json");
+	}
+</script>
+<script>
+	$('#finance_box').addClass('active');
+	$('#finance_mycz').addClass('active');
+	$('#finance_mycz i').attr('class', 'coin_menu_op_18');
+</script>
+<include file="Public:footer"/>
